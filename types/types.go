@@ -17,11 +17,8 @@ const (
 	EndpointGetFamily             = "/get/family/%s"
 	EndpointFindFamily            = "/find/family/%s"
 	EndpointGetYaraRulesForFamily = "/get/yara/%s/zip"
-<<<<<<< HEAD
-=======
 	EndpointListFamilySamples     = "/list/samples/%s"
 	EndpointScanBinary            = "/scan/binary"
->>>>>>> 09f1726... rough implementation of post request and scanBinary against yara rules
 )
 
 const (
@@ -125,8 +122,6 @@ type FindFamilyElement struct {
 	Name     string   `json:"name"`
 	AltNames []string `json:"alt_names"`
 }
-<<<<<<< HEAD
-=======
 
 // ListFamilySamples ----------------------------------------------------------
 type ListFamilySamples struct {
@@ -141,4 +136,3 @@ type YaraMatchesValue struct {
 	MatchedHits    int64 `json:"matched_hits"`
 	Match          bool  `json:"match"`
 }
->>>>>>> 09f1726... rough implementation of post request and scanBinary against yara rules
