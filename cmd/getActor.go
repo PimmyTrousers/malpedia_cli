@@ -3,11 +3,13 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+	"strings"
 
+	"github.com/jedib0t/go-pretty/table"
 	"github.com/pimmytrousers/malpedia_cli/types"
 	"github.com/pimmytrousers/malpedia_cli/util"
 
-	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
 
@@ -27,7 +29,7 @@ Example Usage:
 			log.Fatalf("getActor takes in only a single argument")
 		}
 
-		name, err := util.GetActorName(args[0])
+		name, err := util.GetActorName(args[0], apiKey)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -48,21 +50,73 @@ Example Usage:
 			log.Fatal("failed to parse response data")
 		}
 
-		log.WithFields(
-			logrus.Fields{
-				"description": actor.Description,
-				"country":     actor.Meta.Country,
-			},
-		).Info("actor informtation")
+		t := table.NewWriter()
+		t.SetAllowedColumnLengths([]int{20, 128})
 
-		for name, family := range actor.Families {
-			log.WithFields(
-				logrus.Fields{
-					"name":        name,
-					"common name": family.CommonName,
-				},
-			).Infof("family results for %s", args[0])
+		t.Style().Options.SeparateColumns = true
+		t.Style().Options.DrawBorder = true
+		t.SetStyle(table.StyleRounded)
+		t.Style().Options.SeparateColumns = true
+		t.Style().Options.DrawBorder = true
+		t.SetOutputMirror(os.Stdout)
+		t.AppendHeader(table.Row{"Field", "Value"})
+
+		t.AppendRow(table.Row{"Common Name", actor.Value + "\n"})
+
+		if actor.Meta.Country != "" {
+			t.AppendRow(table.Row{"Suspected Country", actor.Meta.Country + "\n"})
 		}
+
+		if actor.Meta.CfrTypeOfIncident != "" {
+			t.AppendRow(table.Row{"Operation Type", actor.Meta.CfrTypeOfIncident + "\n"})
+		}
+
+		if len(actor.Meta.Synonyms) > 0 {
+			for i, syn := range actor.Meta.Synonyms {
+				key := fmt.Sprintf("Alias %d", i+1)
+				val := syn
+
+				if i == len(actor.Meta.Synonyms)-1 {
+					val += "\n"
+				}
+
+				t.AppendRow(table.Row{key, val})
+			}
+		}
+
+		actor.Description = strings.ReplaceAll(actor.Description, "\t", " ")
+		actor.Description = strings.ReplaceAll(actor.Description, "\n", " ")
+		actor.Description = strings.ReplaceAll(actor.Description, "\r", "")
+		if actor.Description != "" {
+			t.AppendRow(table.Row{"Description", actor.Description + "\n"})
+		}
+
+		if len(actor.Families) > 0 {
+			i := 0
+			for family := range actor.Families {
+				key := fmt.Sprintf("Family %d", i+1)
+				val := family
+				if i == len(actor.Families)-1 {
+					val += "\n"
+				}
+				t.AppendRow(table.Row{key, val})
+
+				i++
+			}
+		}
+
+		if len(actor.Meta.Refs) > 0 {
+			for i, reference := range actor.Meta.Refs {
+				key := fmt.Sprintf("Reference %d", i+1)
+				val := reference
+				if i == len(actor.Meta.Refs)-1 {
+					val += "\n"
+				}
+				t.AppendRow(table.Row{key, val})
+			}
+		}
+
+		t.Render()
 
 	},
 }

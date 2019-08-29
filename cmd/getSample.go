@@ -65,13 +65,13 @@ Example usage:
 			if err != nil {
 				log.Fatal("failed to dump samples to disk")
 			}
+			log.Printf("wrote sample to %s", outzip)
 		} else {
 			err := dumpRaw(&jsonBody)
 			if err != nil {
 				log.Fatal("failed to dump samples to disk")
 			}
 		}
-
 	},
 }
 
@@ -85,6 +85,8 @@ func dumpRaw(elems *map[string]string) error {
 		if err != nil {
 			return err
 		}
+
+		log.Printf("wrote sample to %s", k)
 	}
 
 	return nil
@@ -104,7 +106,8 @@ func dumpZip(elems *map[string]string) error {
 		if err != nil {
 			return err
 		}
-		w, err := zipw.Encrypt(k, password, zip.AES256Encryption)
+		// TODO: apparently the unzip binary in UNIX does not support AES encryption
+		w, err := zipw.Encrypt(k, password, zip.AES128Encryption)
 		if err != nil {
 			return err
 		}

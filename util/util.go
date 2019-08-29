@@ -20,11 +20,15 @@ import (
 	"github.com/pimmytrousers/malpedia_cli/types"
 )
 
+// Hash is a enum to support different types of hashes
 type Hash int
 
 const (
+	// MD5 is the enum to compare against for MD5 hashes
 	MD5 Hash = iota
+	// SHA1 is the enum to compare against for SHA1 hashes
 	SHA1
+	// SHA256 is the enum to compare against for SHA256 hashes
 	SHA256
 )
 
@@ -47,7 +51,6 @@ func HttpGetQuery(p types.Endpoint, apiKey string) ([]byte, error) {
 	req.Header.Set("Authorization", "apitoken "+apiKey)
 
 	client := &http.Client{}
-
 	resp, err = client.Do(req)
 	if err != nil {
 		return nil, err
@@ -65,12 +68,11 @@ func HttpGetQuery(p types.Endpoint, apiKey string) ([]byte, error) {
 	return buf, nil
 }
 
-func GetActorName(inputActor string) (string, error) {
-	endpoint := types.EndpointFindActor
-	endpoint = fmt.Sprintf(endpoint, inputActor)
-	res, err := HttpGetQuery(types.Endpoint(endpoint), "")
+func GetActorName(inputActor string, apikey string) (string, error) {
+	endpoint := fmt.Sprintf(types.EndpointFindActor, inputActor)
+	res, err := HttpGetQuery(types.Endpoint(endpoint), apikey)
 	if err != nil {
-		return "", types.ErrResourceNotFound
+		return "", err
 	}
 
 	findActor := &types.FindActor{}
@@ -87,9 +89,10 @@ func GetActorName(inputActor string) (string, error) {
 	return actorName, nil
 }
 
-func GetFamilyName(inputFamily string) (string, error) {
+func GetFamilyName(inputFamily string, apikey string) (string, error) {
 	endpoint := fmt.Sprintf(types.EndpointFindFamily, inputFamily)
-	resp, err := HttpGetQuery(types.Endpoint(endpoint), "")
+
+	resp, err := HttpGetQuery(types.Endpoint(endpoint), apikey)
 	if err != nil {
 		return "", err
 	}

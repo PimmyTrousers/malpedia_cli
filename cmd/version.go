@@ -23,7 +23,7 @@ Example usage:
 - malpedia_cli version
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		buf, err := util.HttpGetQuery(types.EndpointVersion, "test")
+		buf, err := util.HttpGetQuery(types.EndpointVersion, apiKey)
 		if err != nil {
 			log.Fatal(err)
 		}
