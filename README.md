@@ -21,7 +21,6 @@ apikey: <apikey>
 - [X] get yara rule by family 
 - [X] get the malpedia version
 - [X] get all hashes for a family 
-- 
 
 ## TODO
 - [ ] Command to download all samples from a family 
@@ -45,6 +44,7 @@ apikey: <apikey>
 - malpedia_cli getFamily ursnif
 - malpedia_cli getYara ursnif 
 - malpedia_cli getYara njrat -o njrat.zip
+- malpedia_cli scanYara myRule.yar
 ```
 
 ## Build Instructions
