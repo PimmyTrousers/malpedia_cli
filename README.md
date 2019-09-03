@@ -23,11 +23,14 @@ apikey: <apikey>
 - [X] get all hashes for a family 
 - 
 
-## Commands to be added 
-- [ ] download all samples from a family 
-- [ ] upload a file to be checked against yara rules 
-- [ ] generic search (will return a family or actor)
-- [ ] get all samples from an actor 
+## TODO
+- [ ] Command to download all samples from a family 
+- [ ] Scan malpedia's malware catalog against a yara rule
+- [ ] Upload a file to be checked against yara rules (in the works)
+- [ ] Generic search (will return a family or actor)
+- [ ] Download all samples from an actor
+- [ ] Verbose logging 
+- [ ] Support Contexts
 
 ## Examples 
 ```
@@ -41,7 +44,7 @@ apikey: <apikey>
 - malpedia_cli getFamilies
 - malpedia_cli getFamily ursnif
 - malpedia_cli getYara ursnif 
-- malpedia_cli getYara njrat -o njrat.zi p
+- malpedia_cli getYara njrat -o njrat.zip
 ```
 
 ## Build Instructions

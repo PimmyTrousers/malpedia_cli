@@ -1,2 +1,4 @@
 malpedia_cli
 .vscode
+*.yar
+*.yara

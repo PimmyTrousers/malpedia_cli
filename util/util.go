@@ -112,7 +112,7 @@ func GetFamilyName(inputFamily string, apikey string) (string, error) {
 	return name, nil
 }
 
-func HttpPostQuery(p types.Endpoint, apiKey string, body io.Reader, filename string) ([]byte, error) {
+func HttpMultipartFileUpload(p types.Endpoint, apiKey string, body io.Reader, filename string) ([]byte, error) {
 	urlParsed, err := url.Parse(types.APIBase + string(p))
 	if err != nil {
 		return nil, err
@@ -141,6 +141,30 @@ func HttpPostQuery(p types.Endpoint, apiKey string, body io.Reader, filename str
 	// buf, _ := ioutil.ReadAll(req.Body)
 
 	req.Header.Set("Content-Type", writer.FormDataContentType())
+	req.Header.Set("Authorization", "apitoken "+apiKey)
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	return ioutil.ReadAll(resp.Body)
+}
+
+func HttpRawFileUpload(p types.Endpoint, apiKey string, body io.Reader, filename string) ([]byte, error) {
+	urlParsed, err := url.Parse(types.APIBase + string(p))
+	if err != nil {
+		return nil, err
+	}
+
+	urlStr := urlParsed.String()
+	req, err := http.NewRequest("POST", urlStr, body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Authorization", "apitoken "+apiKey)
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {

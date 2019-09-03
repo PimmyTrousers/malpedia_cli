@@ -25,8 +25,8 @@ var scanBinaryCmd = &cobra.Command{
 			log.Fatal("failed to acquire file handle")
 		}
 
-		resp, err := util.HttpPostQuery(types.EndpointScanBinary, apiKey, f, "fileToBeScanned.bin")
-		fmt.Printf("%s\n", resp)
+		// TODO: Change to hash of file
+		resp, err := util.HttpMultipartFileUpload(types.EndpointScanBinary, apiKey, f, "fileToBeScanned.bin")
 		if err != nil {
 			fmt.Println(err)
 			log.Fatal("failed to scan file against yara rules")

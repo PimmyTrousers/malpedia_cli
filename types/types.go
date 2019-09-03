@@ -19,6 +19,8 @@ const (
 	EndpointGetYaraRulesForFamily = "/get/yara/%s/zip"
 	EndpointListFamilySamples     = "/list/samples/%s"
 	EndpointScanBinary            = "/scan/binary"
+	EndpointScanYara              = "/scan/yara"
+	EndpointScanYaraAgainstFamily = "/scan/yara/%s"
 )
 
 const (
