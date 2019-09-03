@@ -45,6 +45,7 @@ apikey: <apikey>
 - malpedia_cli getYara ursnif 
 - malpedia_cli getYara njrat -o njrat.zip
 - malpedia_cli scanYara myRule.yar
+- malpedia_cli scanYaraBYFamily carbanak myRule.yar
 ```
 
 ## Build Instructions
