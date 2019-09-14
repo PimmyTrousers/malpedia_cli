@@ -21,6 +21,7 @@ apikey: <apikey>
 - [X] get yara rule by family 
 - [X] get the malpedia version
 - [X] get all hashes for a family 
+- [X] download all samples from a family
 ## Images 
 ![Ursnif output](images/Screen&#32;Shot&#32;2019-08-25&#32;at&#32;11.42.33&#32;AM.png)
 
