@@ -1,8 +1,16 @@
 package types
 
-import "errors"
+import (
+	"bytes"
+	"errors"
+)
 
 type Endpoint string
+
+// SampleState represents a acquired file from malpedia.
+// Malpedia will return a sample at multiple states so you can see
+// it dumped at different addresses and being packed or unpacked
+type SampleState *map[string]bytes.Buffer
 
 const (
 	EndpointGetSampleRaw          = "/get/sample/%s/raw"

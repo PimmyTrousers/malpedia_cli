@@ -22,6 +22,10 @@ Usage examples:
 - malpedia_cli getFamilies --json
 - malpedia_cli getFamilies`,
 	Run: func(cmd *cobra.Command, args []string) {
+		if !util.IsAPIKeyValid(apiKey) {
+			log.Fatal("apikey is required")
+		}
+
 		resp, err := util.HttpGetQuery(types.EndpointGetFamilies, apiKey)
 		if err != nil {
 			log.Fatal(err)

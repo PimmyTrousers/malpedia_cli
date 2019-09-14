@@ -21,15 +21,20 @@ apikey: <apikey>
 - [X] get yara rule by family 
 - [X] get the malpedia version
 - [X] get all hashes for a family 
+## Images 
+![Ursnif output](images/Screen&#32;Shot&#32;2019-08-25&#32;at&#32;11.42.33&#32;AM.png)
 
+![FIN7 output](images/Screen&#32;Shot&#32;2019-09-13&#32;at&#32;7.14.04&#32;PM.png)
 ## TODO
-- [ ] Command to download all samples from a family 
+- [X] Command to download all samples from a family 
 - [ ] Scan malpedia's malware catalog against a yara rule
 - [ ] Upload a file to be checked against yara rules (in the works)
 - [ ] Generic search (will return a family or actor)
 - [ ] Download all samples from an actor
 - [ ] Verbose logging 
-- [ ] Support Contexts
+- [ ] Enable user choice if multiple results are returned for fuzzy search
+- [ ] Support contexts
+- [ ] Reject commands that require an API key when one isnt applied
 
 ## Examples 
 ```

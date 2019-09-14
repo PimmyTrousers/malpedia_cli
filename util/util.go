@@ -276,3 +276,92 @@ func Unzip(src string, dest string) error {
 	}
 	return nil
 }
+
+// Download will take in a single hash and return potentially multiple states of the sample
+func DownloadSample(hash string, apiKey string) (types.SampleState, error) {
+	hashType, err := GetHashType(hash)
+	if err != nil {
+		return nil, err
+	}
+
+	if hashType != MD5 && hashType != SHA256 {
+		return nil, errors.New("only md5 and sha256 hashes are allowed")
+	}
+
+	formattedEndpoint := fmt.Sprintf(types.EndpointGetSampleRaw, hash)
+
+	res, err := HttpGetQuery(types.Endpoint(formattedEndpoint), apiKey)
+	if err != nil {
+		return nil, err
+	}
+
+	jsonBody := make(map[string]string)
+
+	err = json.Unmarshal(res, &jsonBody)
+	if err != nil {
+		return nil, err
+	}
+
+	sampleMap := make(map[string]bytes.Buffer, len(jsonBody))
+
+	for k, v := range jsonBody {
+		buf, err := Base64DecodeContent(&v)
+		if err != nil {
+			continue
+		}
+
+		sampleMap[k] = *buf
+
+	}
+
+	return &sampleMap, nil
+}
+
+// DumpRaw will take the malware states object and dump all the files to
+// the current directory
+func DumpRaw(states types.SampleState, hash string) error {
+	for k, v := range *states {
+		err := ioutil.WriteFile(k+"_"+hash, v.Bytes(), 0644)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// DumpZip will take the malware states object and dump a single
+// zip file to disk that contains all of the samples
+func DumpZip(states types.SampleState, hash string, outZip string) error {
+	f, err := os.Create(outZip)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	w := zip.NewWriter(f)
+	defer w.Close()
+
+	for k, v := range *states {
+		f, err := w.Create(k + "_" + hash)
+		if err != nil {
+			return err
+		}
+		_, err = f.Write(v.Bytes())
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// IsAPIKeyValid is a convenience function to check if there is an
+// api key value
+func IsAPIKeyValid(key string) bool {
+	if key == "" {
+		return false
+	}
+
+	return true
+}

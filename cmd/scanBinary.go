@@ -18,6 +18,8 @@ var scanBinaryCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 1 {
 			log.Fatal("scanBinary requires a single file as an argument")
+		} else if !util.IsAPIKeyValid(apiKey) {
+			log.Fatal("apikey is required")
 		}
 
 		f, err := os.Open(args[0])
