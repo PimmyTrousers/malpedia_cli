@@ -44,7 +44,7 @@ Usage examples of the application are as follows:
 	- malpedia_cli search <identifier>
 	- malpedia_cli getYara <family>
 	- malpedia_cli getFamily <family>
-	- malpedia_cli pivot <hash> 
+	- malpedia_cli downloadFamily <family>
 `,
 }
 

@@ -16,7 +16,7 @@ var downloadFamilyCmd = &cobra.Command{
 	Long: `Will take a known family and download all of the samples within malpedia. 
 	
 Example Usage:
-	- malpedia_cli downloadFamily ursnif
+	- malpedia_cli downloadFamily ursnif -r
 	- malpedia_cli downloadFamily emotet
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
