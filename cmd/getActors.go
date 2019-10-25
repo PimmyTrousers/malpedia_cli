@@ -14,13 +14,13 @@ import (
 
 // getActorsCmd represents the getActors command
 var getActorsCmd = &cobra.Command{
-	Use:   "getActors",
+	Use:   "actors",
 	Short: "will return a list of all actors tracked in malpedia",
-	Long: `getActors will return a list of all actors tracked in malpedia
+	Long: `actors will return a list of all actors tracked in malpedia
 
 Example Usage: 
-- malpedia_cli getActors
-- malpedia_cli getActors --json`,
+- malpedia_cli actors
+- malpedia_cli actors --json`,
 	Run: func(cmd *cobra.Command, args []string) {
 		resp, err := util.HttpGetQuery(types.EndpointGetActors, apiKey)
 		if err != nil {

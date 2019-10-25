@@ -140,8 +140,11 @@ func HttpMultipartFileUpload(p types.Endpoint, apiKey string, body io.Reader, fi
 	}
 	// buf, _ := ioutil.ReadAll(req.Body)
 
-	req.Header.Set("Content-Type", writer.FormDataContentType())
-	req.Header.Set("Authorization", "apitoken "+apiKey)
+	req.Header.Add("content-type", writer.FormDataContentType())
+	req.Header.Add("Authorization", "apitoken "+apiKey)
+	req.Header.Add("Accept", "*/*")
+	req.Header.Add("Accept-Encoding", "gzip, deflate")
+	req.Header.Add("Connection", "keep-alive")
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {

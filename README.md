@@ -11,14 +11,16 @@ The application requires an API for some of the endpoints, which can be passed b
 apikey: <apikey>
 ```
 
-## Currently supported commands
-- [X] get samples via hash 
+## Currently supported features
+- [X] download samples via hash 
 - [X] get a list of all tracked actors 
 - [X] get information about a specific actor 
 - [X] get a list of all tracked malware families 
 - [X] get information about a specific malware family 
-- [X] get yara rules by TLP level 
-- [X] get yara rule by family 
+- [X] download yara rules by TLP level 
+- [X] download yara rules by family 
+- [X] scan malpedia's malware catalog against a yara rule
+- [X] validate API keys 
 - [X] get the malpedia version
 - [X] get all hashes for a family 
 - [X] download all samples from a family
@@ -28,14 +30,14 @@ apikey: <apikey>
 ![FIN7 output](images/Screen&#32;Shot&#32;2019-09-13&#32;at&#32;7.14.04&#32;PM.png)
 ## TODO
 - [X] Command to download all samples from a family 
-- [ ] Scan malpedia's malware catalog against a yara rule
+- [X] Scan malpedia's malware catalog against a yara rule
 - [ ] Upload a file to be checked against yara rules (in the works)
 - [ ] Generic search (will return a family or actor)
 - [ ] Download all samples from an actor
 - [ ] Verbose logging 
 - [ ] Enable user choice if multiple results are returned for fuzzy search
 - [ ] Support contexts
-- [ ] Reject commands that require an API key when one isnt applied
+- [X] Reject commands that require an API key when one isnt applied
 
 ## Examples 
 ```
@@ -44,14 +46,14 @@ apikey: <apikey>
 - malpedia_cli getYaraRules amber -z -o yara_rules.zip
 - malpedia_cli getSample 12f38f9be4df1909a1370d77588b74c60b25f65a098a08cf81389c97d3352f82 -p infected123 -o samples.zip
 - malpedia_cli getSample 12f38f9be4df1909a1370d77588b74c60b25f65a098a08cf81389c97d3352f82 -r 
-- malpedia_cli getActors --json
-- malpedia_cli getActor apt28
-- malpedia_cli getFamilies
-- malpedia_cli getFamily ursnif
-- malpedia_cli getYara ursnif 
-- malpedia_cli getYara njrat -o njrat.zip
-- malpedia_cli scanYara myRule.yar
-- malpedia_cli scanYaraBYFamily carbanak myRule.yar
+- malpedia_cli actors --json
+- malpedia_cli actor apt28
+- malpedia_cli scanYara RAT_Nanocore.yar
+- malpedia_cli families
+- malpedia_cli downloadFamily ursnif
+- malpedia_cli downloadYara ursnif 
+- malpedia_cli downloadYara njrat -o njrat.zip
+- malpedia_cli scanYaraAgainstFamily carbanak myRule.yar
 ```
 
 ## Build Instructions

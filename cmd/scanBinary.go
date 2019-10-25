@@ -37,7 +37,7 @@ var scanBinaryCmd = &cobra.Command{
 		if jsonFormat {
 			util.PrettyPrintJson(resp)
 		} else {
-			matches := &map[string]types.YaraMatchesValue{}
+			matches := &map[string]types.BinaryScanMatches{}
 			err := json.Unmarshal(resp, matches)
 			if err != nil {
 				fmt.Println(err)

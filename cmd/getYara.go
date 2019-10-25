@@ -18,22 +18,22 @@ var outputFileName string
 
 // getYaraCmd represents the getYara command
 var getYaraRulesCmd = &cobra.Command{
-	Use:   "getYara",
+	Use:   "downloadYara",
 	Short: "Will download all Yara rules specified by the conditions passed",
 	Long: `Will download all Yara rules specified by the conditions passed.
 Can pass a zip flag to request all the Yara rules as a zip file.
 All requests require a TLP level of eithe white green or amber.
 
 Example usage:
-- malpedia_cli getYara tlp white
-- malpedia_cli getYara tlp green -o yara_rules
-- malpedia_cli getYara tlp amber -z -o yara_rules.zip
-- malpedia_cli getYara family ursnif 
-- malpedia_cli getYara family emotet
-- malpedia_cli getYara family njrat -z -o njrat.zip`,
+- malpedia_cli downloadYara tlp white
+- malpedia_cli downloadYara tlp green -o yara_rules
+- malpedia_cli downloadYara tlp amber -z -o yara_rules.zip
+- malpedia_cli downloadYara family ursnif 
+- malpedia_cli downloadYara family emotet
+- malpedia_cli downloadYara family njrat -z -o njrat.zip`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 2 {
-			log.Fatal("getYara requires two arguments")
+			log.Fatal("downloadYara requires two arguments")
 		}
 
 		var err error

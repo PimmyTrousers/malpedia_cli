@@ -33,18 +33,19 @@ requires an API key which can be acquired once the user had an account. Malpedia
 key via a commandline argument, a config file or a config file in the home directory. 
 
 Usage examples of the application are as follows:
+	- malpedia_cli actor <actor name>
+	- malpedia_cli actors
+	- malpedia_cli downloadFamily <family name>
+	- malpedia_cli downloadSample <hash1>
+	- malpedia_cli downloadYara <family>
+	- malpedia_cli downloadYara <TLP Level>
+	- malpedia_cli families
+	- malpedia_cli familySamples <family>
+	- malpedia_cli family <family>
 	- malpedia_cli scanBinary <file1>
-	- malpedia_cli getSample <hash1>
+	- malpedia_cli scanYara <file1>
+	- malpedia_cli scanYaraAgainstFamily <file1>
 	- malpedia_cli version
-	- malpedia_cli getActors
-	- malpedia_cli getActor <actor name>
-	- malpedia_cli getYara <tlp>
-	- malpedia_cli getFamilies
-	- malpedia_cli getFamily <family name>
-	- malpedia_cli search <identifier>
-	- malpedia_cli getYara <family>
-	- malpedia_cli getFamily <family>
-	- malpedia_cli downloadFamily <family>
 `,
 }
 

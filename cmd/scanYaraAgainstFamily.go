@@ -22,7 +22,7 @@ Example usage:
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 2 {
-			log.Fatal("scanYara requires a family name and a path to a yara rule")
+			log.Fatal("scanYaraAgainstFamily requires a family name and a path to a yara rule")
 		}
 
 		name, err := util.GetFamilyName(args[0], apiKey)

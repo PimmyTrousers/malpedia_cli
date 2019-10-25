@@ -12,17 +12,17 @@ import (
 
 // listFamilySamplesCmd represents the listFamilySamples command
 var listFamilySamplesCmd = &cobra.Command{
-	Use:   "listFamilySamples",
+	Use:   "familySamples",
 	Short: "Will list all the indexed samples for a family",
 	Long: `Will list all the indexed samples for a family. 
 	
 Example usage:
-- malpedia_cli listFamilySamples flame
-- malpedia_cli listFamilySamples stuxnet --json
+- malpedia_cli familySamples flame
+- malpedia_cli familySamples stuxnet --json
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 1 {
-			log.Fatal("ListFamilySamples requires a family name")
+			log.Fatal("familySamples requires a family name")
 		}
 
 		family, err := util.GetFamilyName(args[0], apiKey)

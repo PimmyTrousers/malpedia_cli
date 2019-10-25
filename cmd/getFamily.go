@@ -17,17 +17,19 @@ var printHashes bool
 
 // getFamilyCmd represents the getFamily command
 var getFamilyCmd = &cobra.Command{
-	Use:   "getFamily",
-	Short: "getFamily will return information about a malware family",
-	Long: `getFamily will return information about a malware family.
+	Use:   "family",
+	Short: "family will return information about a malware family",
+	Long: `family will return information about a malware family.
 
 Usage examples: 
-- malpedia_cli getFamily ursnif
-- malpedia_cli getFamily njrat --samples
-- malpedia_cli getFamily emotet --json`,
+- malpedia_cli family ursnif
+- malpedia_cli family njrat --samples
+- malpedia_cli family emotet --json`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 1 {
-			log.Fatal("getFamily requires 1 argument only")
+			log.Fatal("family requires 1 argument only")
+		} else if !util.IsAPIKeyValid(apiKey) {
+			log.Fatal("family requres an API key")
 		}
 
 		name, err := util.GetFamilyName(args[0], apiKey)

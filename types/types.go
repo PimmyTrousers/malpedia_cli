@@ -141,8 +141,22 @@ type ListFamilySamples struct {
 }
 
 // ScanBinary ----------------------------------------------------------
-type YaraMatchesValue struct {
+type BinaryScanMatches struct {
 	MatchedStrings int64 `json:"matched_strings"`
 	MatchedHits    int64 `json:"matched_hits"`
 	Match          bool  `json:"match"`
+}
+
+// ScanYara ----------------------------------------------------------
+type YaraScanMatches struct {
+	YaraRule map[string]interface{}
+}
+
+type YaraRuleScanFamilies struct {
+	YaraScanFamily map[string]interface{}
+}
+
+type InFileMatches struct {
+	Matches        bool     `json:"matches"`
+	MatchedStrings []string `json:"matched_strings"`
 }

@@ -14,13 +14,13 @@ import (
 
 // getFamiliesCmd represents the getFamilies command
 var getFamiliesCmd = &cobra.Command{
-	Use:   "getFamilies",
-	Short: "getFamilies will returns all malware families tracked in Malpedia",
-	Long: `getFamilies will returns all malware families tracked in Malpedia
+	Use:   "families",
+	Short: "families will returns all malware families tracked in Malpedia",
+	Long: `families will returns all malware families tracked in Malpedia
 
 Usage examples: 
-- malpedia_cli getFamilies --json
-- malpedia_cli getFamilies`,
+- malpedia_cli families --json
+- malpedia_cli families`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if !util.IsAPIKeyValid(apiKey) {
 			log.Fatal("apikey is required")

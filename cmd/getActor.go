@@ -15,18 +15,18 @@ import (
 
 // getActorCmd represents the getActor command
 var getActorCmd = &cobra.Command{
-	Use:   "getActor",
+	Use:   "actor",
 	Short: "Will return metadata about a specific actor",
 	Long: `This will make 2 requests, one to check that the actor ID is valid and another
 to request the metadata if the actor ID is valid
 
 Example Usage:
-- malpedia_cli getActor apt28
-- malpedia_cli getActor apt28 --json
+- malpedia_cli actor apt28
+- malpedia_cli actor apt28 --json
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) != 1 {
-			log.Fatalf("getActor takes in only a single argument")
+			log.Fatalf("actor takes in only a single argument")
 		}
 
 		name, err := util.GetActorName(args[0], apiKey)
