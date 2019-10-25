@@ -32,12 +32,14 @@ const (
 )
 
 const (
+	// APIBase is the default endpoint for malpedia
 	APIBase         = "https://malpedia.caad.fkie.fraunhofer.de/api"
 	Dumped   string = "dumped"
 	Packed   string = "packed"
 	Unpacked string = "unpacked"
 )
 
+// ErrResourceNotFound is the generic error returned for resources that aren't found whether that be entries or malware samples
 var ErrResourceNotFound = errors.New("Resource Not Found")
 
 type actorSearchElement struct {
@@ -46,8 +48,11 @@ type actorSearchElement struct {
 	Name       string   `json:"name"`
 }
 
-type FamilySamples map[string][]FamilySample
+type FamilySamples []FamilySample
 
+// ListFamilySamples ----------------------------------------------------------
+
+// FamilySample is the struct to represent the result from the API
 type FamilySample struct {
 	Status  string `json:"status"`
 	Sha256  string `json:"sha256"`
@@ -64,6 +69,7 @@ type Version struct {
 	Version int    `json:"version"`
 }
 
+// Actor is the struct that is marshalled into from the API
 type Actor struct {
 	Value       string            `json:"value"`
 	Meta        Meta              `json:"meta"`
@@ -133,30 +139,11 @@ type FindFamilyElement struct {
 	AltNames []string `json:"alt_names"`
 }
 
-// ListFamilySamples ----------------------------------------------------------
-type ListFamilySamples struct {
-	Status  string `json:"status"`
-	Sha256  string `json:"sha256"`
-	Version string `json:"version"`
-}
-
 // ScanBinary ----------------------------------------------------------
+
+// BinaryScanMatches is the datatype used for the ScanBinary command. It is a struct for the json that is returned by the API
 type BinaryScanMatches struct {
 	MatchedStrings int64 `json:"matched_strings"`
 	MatchedHits    int64 `json:"matched_hits"`
 	Match          bool  `json:"match"`
-}
-
-// ScanYara ----------------------------------------------------------
-type YaraScanMatches struct {
-	YaraRule map[string]interface{}
-}
-
-type YaraRuleScanFamilies struct {
-	YaraScanFamily map[string]interface{}
-}
-
-type InFileMatches struct {
-	Matches        bool     `json:"matches"`
-	MatchedStrings []string `json:"matched_strings"`
 }

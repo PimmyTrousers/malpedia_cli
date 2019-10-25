@@ -40,7 +40,7 @@ Example usage:
 		if jsonFormat {
 			util.PrettyPrintJson(resp)
 		} else {
-			samples := &[]types.ListFamilySamples{}
+			samples := &types.FamilySamples{}
 			err := json.Unmarshal(resp, samples)
 			if err != nil {
 				log.Fatal("failed to unmarshal response")

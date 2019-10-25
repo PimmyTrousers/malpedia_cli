@@ -145,7 +145,7 @@ func getHashes(family string) (*map[string][]string, error) {
 		return nil, err
 	}
 
-	samples := &[]types.ListFamilySamples{}
+	samples := &types.FamilySamples{}
 	err = json.Unmarshal(resp, samples)
 	if err != nil {
 		return nil, err
