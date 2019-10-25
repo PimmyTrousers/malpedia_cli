@@ -32,6 +32,7 @@ apikey: <apikey>
 ## TODO
 - [X] Command to download all samples from a family 
 - [X] Scan malpedia's malware catalog against a yara rule
+- [ ] Remove apikey argument from functions that don't need it 
 - [ ] Upload a file to be checked against yara rules (in the works)
 - [ ] Generic search (will return a family or actor)
 - [ ] Download all samples from an actor

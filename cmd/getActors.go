@@ -28,6 +28,7 @@ Example Usage:
 		}
 
 		if jsonFormat {
+			fmt.Println(string(resp))
 			err = util.PrettyPrintJson(resp)
 			if err != nil {
 				log.Fatal(err)

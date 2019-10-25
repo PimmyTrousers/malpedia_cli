@@ -207,10 +207,12 @@ func GetHashType(hash string) (Hash, error) {
 	return 0, errors.New("invalid hash type")
 }
 
-func Base64DecodeContent(buf *string) (*bytes.Buffer, error) {
-	b := make([]byte, 8)
+// Base64DecodeContent takes in
+func Base64DecodeContent(buf string) (*bytes.Buffer, error) {
+	// TODO: what is a good balance here between size and efficiency
+	b := make([]byte, 1)
 
-	oldBuf := bytes.NewBufferString(*buf)
+	oldBuf := bytes.NewBufferString(buf)
 	newBuf := bytes.NewBuffer(nil)
 
 	decoder := base64.NewDecoder(base64.StdEncoding, oldBuf)
@@ -241,10 +243,8 @@ func Unzip(src string, dest string) error {
 
 	for _, f := range r.File {
 
-		// Store filename/path for returning and using later on
 		fpath := filepath.Join(dest, f.Name)
 
-		// Check for ZipSlip. More Info: http://bit.ly/2MsjAWE
 		if !strings.HasPrefix(fpath, filepath.Clean(dest)+string(os.PathSeparator)) {
 			return fmt.Errorf("%s: illegal file path", fpath)
 		}
@@ -280,7 +280,6 @@ func Unzip(src string, dest string) error {
 	return nil
 }
 
-// Download will take in a single hash and return potentially multiple states of the sample
 func DownloadSample(hash string, apiKey string) (types.SampleState, error) {
 	hashType, err := GetHashType(hash)
 	if err != nil {
@@ -308,7 +307,7 @@ func DownloadSample(hash string, apiKey string) (types.SampleState, error) {
 	sampleMap := make(map[string]bytes.Buffer, len(jsonBody))
 
 	for k, v := range jsonBody {
-		buf, err := Base64DecodeContent(&v)
+		buf, err := Base64DecodeContent(v)
 		if err != nil {
 			continue
 		}
@@ -363,6 +362,8 @@ func DumpZip(states types.SampleState, hash string, outZip string) error {
 // api key value
 func IsAPIKeyValid(key string) bool {
 	if key == "" {
+		return false
+	} else if res, _ := GetHashType(key); res != SHA1 {
 		return false
 	}
 

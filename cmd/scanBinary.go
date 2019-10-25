@@ -46,7 +46,7 @@ var scanBinaryCmd = &cobra.Command{
 
 			for name, match := range *matches {
 				if match.Match {
-					log.Info("%s matched yara rule %s", args[0], name)
+					log.Infof("%s matched yara rule %s", args[0], name)
 				}
 			}
 		}
