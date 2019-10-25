@@ -1,6 +1,7 @@
 # malpedia_cli
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/PimmyTrousers/malpedia_cli)](https://goreportcard.com/report/github.com/PimmyTrousers/malpedia_cli)
+[![Build Status](https://travis-ci.org/PimmyTrousers/malpedia_cli.svg?branch=master)](https://travis-ci.org/PimmyTrousers/malpedia_cli)
 
 Malpedia_cli is a tool to interact with the malpedia service located [here](https://malpedia.caad.fkie.fraunhofer.de). Some of the endpoints commands require an api key due to restrictions with the service itself. It simplifies some of the endpoints and exposes the features that I beleive are the most important. 
 
