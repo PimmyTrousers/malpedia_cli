@@ -169,8 +169,59 @@ func TestDownloadSample(t *testing.T) {
 				match = true
 			}
 		}
+
 		if !match {
 			t.Error("failed to find a sample with a matching hash")
+		}
+	}
+}
+
+func TestDumpRaw(t *testing.T) {
+	apiKey := os.Getenv("API_KEY")
+	if apiKey == "" {
+		t.Error("apikey not set")
+	}
+	for _, revilHash := range DownloadSamples {
+		samples, err := DownloadSample(revilHash, apiKey)
+		if err != nil {
+			t.Error(err)
+		}
+		err = DumpRaw(samples, revilHash)
+		if err != nil {
+			t.Error(err)
+			return
+		}
+
+		for k := range *samples {
+			err := os.Remove(k + "_" + revilHash)
+			if err != nil {
+				t.Error(err)
+				return
+			}
+		}
+	}
+}
+
+func TestDumpZip(t *testing.T) {
+	apiKey := os.Getenv("API_KEY")
+	if apiKey == "" {
+		t.Error("apikey not set")
+	}
+	for _, revilHash := range DownloadSamples {
+		samples, err := DownloadSample(revilHash, apiKey)
+		if err != nil {
+			t.Error(err)
+		}
+		err = DumpZip(samples, revilHash, "test.zip")
+		if err != nil {
+			t.Error(err)
+			return
+		}
+
+		err = os.Remove("test.zip")
+		if err != nil {
+			t.Error(err)
+			return
 		}
 	}
 }
