@@ -3,7 +3,9 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/PimmyTrousers/malpedia_cli)](https://goreportcard.com/report/github.com/PimmyTrousers/malpedia_cli)
 [![Build Status](https://travis-ci.org/PimmyTrousers/malpedia_cli.svg?branch=master)](https://travis-ci.org/PimmyTrousers/malpedia_cli)
 
-Malpedia_cli is a tool to interact with the malpedia service located [here](https://malpedia.caad.fkie.fraunhofer.de). Some of the endpoints commands require an api key due to restrictions with the service itself. It simplifies some of the endpoints and exposes the features that I beleive are the most important. 
+Malpedia_cli is a tool to interact with the malpedia [service](https://malpedia.caad.fkie.fraunhofer.de). Some of the endpoints commands require an api key due to restrictions with the service itself but the tool will tell you if you need one or not for the request. Its goal is to simplify usage and allows users to seamlessly work with the resources contained with the malpedia service. 
+
+Malpedia_cli can be used for getting information about a actor, getting information about a malware family, acquiring samples, uploading yara rules, downloading yara rules, and uploading samples to be scanned against their malware corpus.
 
 ## Configuration of the tool
 The application requires an API for some of the endpoints, which can be passed by arugment or a YAML file at `$HOME/.malpedia_cli.yaml`. Currently it only allows for an apikey, so an example would look like the following 
@@ -26,9 +28,11 @@ apikey: <apikey>
 - [X] get all hashes for a family 
 - [X] download all samples from a family
 ## Images 
-![Ursnif output](images/Screen&#32;Shot&#32;2019-08-25&#32;at&#32;11.42.33&#32;AM.png)
+![Ursnif output](images/Screen&#32;Shot&#32;2019-11-02&#32;at&#32;1.41.53&#32;PM.png)
 
-![FIN7 output](images/Screen&#32;Shot&#32;2019-09-13&#32;at&#32;7.14.04&#32;PM.png)
+![FIN7 output](images/Screen&#32;Shot&#32;2019-11-02&#32;at&#32;1.42.31&#32;PM.png)
+
+![Yara scan results](images/Screen&#32;Shot&#32;2019-11-02&#32;at&#32;1.40.19&#32;PM.png)
 ## TODO
 - [X] Command to download all samples from a family 
 - [X] Scan malpedia's malware catalog against a yara rule
