@@ -48,17 +48,17 @@ apikey: <apikey>
 ## Examples 
 ```
 - malpedia_cli version
-- malpedia_cli getYaraRules white
-- malpedia_cli getYaraRules amber -z -o yara_rules.zip
-- malpedia_cli getSample 12f38f9be4df1909a1370d77588b74c60b25f65a098a08cf81389c97d3352f82 -p infected123 -o samples.zip
+- malpedia_cli getYara tlp white
+- malpedia_cli getYara tlp amber -z -o yara_rules.zip
+- malpedia_cli getSample 12f38f9be4df1909a1370d77588b74c60b25f65a098a08cf81389c97d3352f82 -o samples.zip
 - malpedia_cli getSample 12f38f9be4df1909a1370d77588b74c60b25f65a098a08cf81389c97d3352f82 -r 
-- malpedia_cli actors --json
-- malpedia_cli actor apt28
+- malpedia_cli getActors --json
+- malpedia_cli getActor apt28
 - malpedia_cli scanYara RAT_Nanocore.yar
-- malpedia_cli families
+- malpedia_cli getFamilies
 - malpedia_cli downloadFamily ursnif
-- malpedia_cli downloadYara ursnif 
-- malpedia_cli downloadYara njrat -o njrat.zip
+- malpedia_cli getYara family ursnif
+- malpedia_cli getYara family njrat -o njrat.zip
 - malpedia_cli scanYaraAgainstFamily carbanak myRule.yar
 ```
 
