@@ -1,7 +1,7 @@
 package main
 
-import "github.com/pimmytrousers/malpedia_cli/cmd"
-
 func main() {
-	cmd.Execute()
+	if err := rootCmd.Execute(); err != nil {
+		log.Fatalf("%+v", err)
+	}
 }
