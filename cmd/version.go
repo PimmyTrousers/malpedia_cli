@@ -23,6 +23,11 @@ Example usage:
 - malpedia_cli version
 `,
 	Run: func(cmd *cobra.Command, args []string) {
+		// Check if API key is required for this endpoint
+		if !util.IsAPIKeyValid(apiKey) {
+			log.Warn("No API key provided. Some endpoints may not work.")
+		}
+		
 		buf, err := util.HttpGetQuery(types.EndpointVersion, apiKey)
 		if err != nil {
 			log.Fatal(err)

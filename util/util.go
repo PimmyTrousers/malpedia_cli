@@ -9,7 +9,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"mime/multipart"
 	"net/http"
 	"net/url"
@@ -56,7 +55,9 @@ func HttpGetQuery(p types.Endpoint, apiKey string) ([]byte, error) {
 		return nil, err
 	}
 
-	buf, err := ioutil.ReadAll(resp.Body)
+	defer resp.Body.Close()
+
+	buf, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +139,7 @@ func HttpMultipartFileUpload(p types.Endpoint, apiKey string, body io.Reader, fi
 	if err != nil {
 		return nil, err
 	}
-	// buf, _ := ioutil.ReadAll(req.Body)
+	// buf, _ := io.ReadAll(req.Body)
 
 	req.Header.Add("content-type", writer.FormDataContentType())
 	req.Header.Add("Authorization", "apitoken "+apiKey)
@@ -152,7 +153,7 @@ func HttpMultipartFileUpload(p types.Endpoint, apiKey string, body io.Reader, fi
 	}
 	defer resp.Body.Close()
 
-	return ioutil.ReadAll(resp.Body)
+	return io.ReadAll(resp.Body)
 }
 
 func HttpRawFileUpload(p types.Endpoint, apiKey string, body io.Reader, filename string) ([]byte, error) {
@@ -175,7 +176,7 @@ func HttpRawFileUpload(p types.Endpoint, apiKey string, body io.Reader, filename
 	}
 	defer resp.Body.Close()
 
-	return ioutil.ReadAll(resp.Body)
+	return io.ReadAll(resp.Body)
 }
 
 func PrettyPrintJson(buf []byte) error {
@@ -323,7 +324,7 @@ func DownloadSample(hash string, apiKey string) (types.SampleState, error) {
 // the current directory
 func DumpRaw(states types.SampleState, hash string) error {
 	for k, v := range *states {
-		err := ioutil.WriteFile(k+"_"+hash, v.Bytes(), 0644)
+		err := os.WriteFile(k+"_"+hash, v.Bytes(), 0644)
 		if err != nil {
 			return err
 		}

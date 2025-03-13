@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jedib0t/go-pretty/table"
+	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/pimmytrousers/malpedia_cli/types"
 	"github.com/pimmytrousers/malpedia_cli/util"
 	"github.com/spf13/cobra"
@@ -51,7 +51,10 @@ Example usage:
 			}
 
 			t := table.NewWriter()
-			t.SetAllowedColumnLengths([]int{20, 128})
+			t.SetColumnConfigs([]table.ColumnConfig{
+				{Number: 1, WidthMax: 20},
+				{Number: 2, WidthMax: 128},
+			})
 
 			t.Style().Options.SeparateColumns = true
 			t.Style().Options.DrawBorder = true

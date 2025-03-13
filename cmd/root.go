@@ -93,7 +93,5 @@ func initConfig() {
 
 	if vConfig.IsSet(apikeyName) {
 		apiKey = vConfig.GetString(apikeyName)
-	} else if apiKey == "" {
-		log.Fatal("no apikey available")
 	}
 }
